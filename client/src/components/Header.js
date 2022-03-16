@@ -5,7 +5,6 @@ import {
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-
 class Header extends Component {
 
 
@@ -47,13 +46,13 @@ class Header extends Component {
             <div>
                 <div >
                     {/* <div className="row-header"> */}
-                    <img src="images/logo2.png" />
+                    <img src="/assets/images/logo2.png" />
                     {/* </div> */}
                 </div>
                 <div className="navbar-header">
                     <Navbar dark expand="md">
                         <NavbarToggler onClick={this.toggleNav} />
-                        <NavbarBrand style={{ display: 'flex' }} href="/"><img src='images/clapperboard.png' height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand>
+                        <NavbarBrand style={{ display: 'flex' }} href="/"><img src='/assets/images/clapperboard.png' height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand>
 
                         <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav className="me-auto" navbar>
@@ -70,17 +69,17 @@ class Header extends Component {
                                     <NavLink className="nav-link" to='/mylists'><span className="fa fa-list fa-lg"></span> MyLists</NavLink>
                                 </NavItem>
                             </Nav>
-                            <Nav className="ml-auto" navbar>
+                            {/* <Nav className="ml-auto" navbar>
                                 <NavItem>
                                     <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span>Login</Button>
                                 </NavItem>
-                            </Nav>
+                            </Nav> */}
                         </Collapse>
 
                     </Navbar>
                 </div>
 
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                {/* <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.handleLogin}>
@@ -105,7 +104,7 @@ class Header extends Component {
                             <Button type="submit" value="submit" color="primary">Login</Button>
                         </Form>
                     </ModalBody>
-                </Modal>
+                </Modal> */}
             </div>
         );
     }

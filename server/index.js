@@ -9,7 +9,7 @@ app.use(express.json());
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Sunny#0145',
+    password: 'Oneplus@7',
     database: "csn_database",
 });
 
@@ -50,7 +50,7 @@ app.post("/signup", (req, res) => {
     );
 });
 
-app.get("/films", (req, res) => {
+app.get("/home", (req, res) => {
     console.log("films listing");
     db.query(
         "SELECT * FROM movie",
