@@ -3,44 +3,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import Axios from 'axios'
-import "./styles.css";/*
-class SignUp extends Component {
-    render() {
-        return (
-            <form>
-                <h3>Sign Up</h3>
-                <div className="form-group">
-                    <label>user id</label>
-                    <input type="text" className="form-control" placeholder="Enter userid" onChange={(e) => {
-                        setuseridReg(e.target.value);
-                    }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" onChange={(e) => {
-                        setemailidReg(e.target.value);
-                    }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" onChange={(e) => {
-                        setpasswordReg(e.target.value);
-                    }}
-                    />
-                </div>
-                <button onClick={signup} type="submit" className="btn btn-primary btn-block">Sign Up</button>
-
-                <p className="forgot-password text-right">
-                  Already registered <a href="#">sign in?</a>
-                </p>
-            </form>
-        );
-    }
-}
-*/
-
+import "./styles.css";
+import { Link } from 'react-router-dom';
 export default function SignUp() {
 
     const [userid, setuserid] = useState("");
@@ -99,7 +63,7 @@ export default function SignUp() {
                     sign Up
                 </Button>
                 <p className="forgot-password text-right">
-                    Already registered <a href="#">sign in?</a>
+                    Already registered <Link to={'/signin'}>sign in?</Link>
                 </p>
             </Form>
         </div>

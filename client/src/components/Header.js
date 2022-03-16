@@ -1,66 +1,115 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import {
+    Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Modal, ModalBody, Label, ModalHeader,
+    Form, FormGroup, Input, Button
+} from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
-const Header = () => {
-    return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <NavLink to="#" className="nav-item">
-            
-            </NavLink>
-            <div className="collapse navbar-collapse">
-                <ul className="navbar-nav">
-                    <NavLink to="#" className="nav-item my-2 my-sm-0">
-                        <a className="nav-link" href="#">
-                            SignIn
-                        </a>
-                    </NavLink>
-                    <NavLink to="#" className="nav-item my-2 my-sm-0">
-                        <a className="nav-link" href="#">
-                            SignUp
-                        </a>
-                    </NavLink>
-                    <NavLink to="#" className="nav-item my-2 my-sm-0">
-                        <a className="nav-link" href="#">
-                            Films
-                        </a>
-                    </NavLink>
-                    <NavLink to="#" className="nav-item my-2 my-sm-0">
-                        <a className="nav-link" href="#">
-                            Lists
-                        </a>
-                    </NavLink>
-                </ul>
+
+class Header extends Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isNavOpen: false,
+            isModalOpen: false,
+            isLoggedin: false,
+            username: "",
+            password: ""
+        }
+        this.toggleNav = this.toggleNav.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
+    toggleModal() {
+        let temp = this.state.isModalOpen;
+        this.setState({ isModalOpen: !temp });
+    }
+    toggleNav() {
+        let temp = this.state.isNavOpen;
+        this.setState({ isNavOpen: !temp });
+    }
+    handleLogin(event) {
+        this.toggleModal();
+        let temp = this.state.isLoggedin;
+        this.setState({ username: this.username.value });
+        this.setState({ password: this.password.value });
+        //code to handle login
+        alert("username: " + this.username.value + "password: " + this.password.value +
+            "Remember Me: " + this.remember.checked);
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <div>
+                <div >
+                    {/* <div className="row-header"> */}
+                    <img src="images/logo2.png" />
+                    {/* </div> */}
+                </div>
+                <div className="navbar-header">
+                    <Navbar dark expand="md">
+                        <NavbarToggler onClick={this.toggleNav} />
+                        <NavbarBrand style={{ display: 'flex' }} href="/"><img src='images/clapperboard.png' height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand>
+
+                        <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav className="me-auto" navbar>
+                                <NavItem>
+                                    <NavLink className="nav-link" to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to='/profile'><span className="fa fa-address-card fa-lg"></span> Profile</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to='/films'><span className="fa fa-info fa-lg"></span> Films</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to='/mylists'><span className="fa fa-list fa-lg"></span> MyLists</NavLink>
+                                </NavItem>
+                            </Nav>
+                            <Nav className="ml-auto" navbar>
+                                <NavItem>
+                                    <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span>Login</Button>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
+
+                    </Navbar>
+                </div>
+
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
+                    <ModalBody>
+                        <Form onSubmit={this.handleLogin}>
+                            <FormGroup>
+                                <Label htmlFor="username">Username</Label>
+                                <Input type="text" id="username" name="username"
+                                    innerRef={(input) => this.username = input} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor="password">Password</Label>
+                                <Input type="password" id="password" name="password"
+                                    innerRef={(input) => this.password = input} />
+                            </FormGroup>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type="checkbox" name="remember"
+                                        innerRef={(input) => this.remember = input} />
+                                    Remember me
+                                </Label>
+
+                            </FormGroup>
+                            <Button type="submit" value="submit" color="primary">Login</Button>
+                        </Form>
+                    </ModalBody>
+                </Modal>
             </div>
-        )}
-        </nav>
-
-
-
-    );
-};
-export default Header;
-
-import React from 'react';
-import { Link } from "react-router-dom";
-const Header = () => {
-    return (
-        <div>
-            <a href="#">
-                <img src={require('./images/logo2.png')} className="CSNIcon" />
-            </a>
-            <li>
-                <Link to="#">SignIn</Link>
-            </li>
-            <li>
-                <Link to="#">SignUp</Link>
-            </li>
-            <li>
-                <Link to="#">Films</Link>
-            </li>
-            <li>
-                <Link to="#">Lists</Link>
-            </li>
-        </div>
-    );
+        );
+    }
 }
+
+
 export default Header;

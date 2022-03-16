@@ -1,70 +1,64 @@
-import React from "react";
-import {
-    AppBar,
-    Toolbar,
-    CssBaseline,
-    Typography,
-    makeStyles,
-    useTheme,
-    useMediaQuery,
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
-import DrawerComponent from "./Drawer";
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import { getTokenFromCookie } from "./authentication";
+import { delTokenFromCookie } from "./authentication";
 
-const useStyles = makeStyles((theme) => ({
-    navlinks: {
-        marginLeft: theme.spacing(5),
-        display: "flex",
-    },
-    logo: {
-        flexGrow: "1",
-        cursor: "pointer",
-    },
-    link: {
-        textDecoration: "none",
-        color: "white",
-        fontSize: "20px",
-        marginLeft: theme.spacing(20),
-        "&:hover": {
-            color: "yellow",
-            borderBottom: "1px solid white",
-        },
-    },
-}));
+class NavBar extends Component {
+    clearSession = () => {
+        delTokenFromCookie();
+        this.props.setUserInfo(null);
+    };
 
-function Navbar() {
-    const classes = useStyles();
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
-    return (
-        <AppBar position="static">
-            <CssBaseline />
-            <Toolbar>
-                <Typography variant="h4" className={classes.logo}>
-                    Navbar
-
-                </Typography>
-                {isMobile ? (
-                    <DrawerComponent />
+    render() {
+        const { user } = this.props;
+        const sessionActive = user && getTokenFromCookie();
+        return (
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div className="collapse navbar-collapse">
+                    <ul className="navbar-nav">
+                        <NavLink to="/" className="nav-item">
+                            <a className="nav-link" href="#">
+                                <i class="fa fa-home" aria-hidden="true"></i>
+                            </a>
+                        </NavLink>
+                        <NavLink to="/movies" className="nav-item">
+                            <a className="nav-link" href="#">
+                                Movies
+                            </a>
+                        </NavLink>
+                        <NavLink to="/add_movie" className="nav-item">
+                            <a className="nav-link" href="#">
+                                Add a Movie
+                            </a>
+                        </NavLink>
+                        <NavLink to="/popular-movies" className="nav-item">
+                            <a className="nav-link" href="#">
+                                Top 10 Movies
+                            </a>
+                        </NavLink>
+                    </ul>
+                </div>
+                {sessionActive ? (
+                    <React.Fragment>
+                        <span className="navbar-text text-light">{`Hi ${user.firstName},`}</span>
+                        &nbsp;&nbsp;
+                        <button
+                            className="btn btn-outline-light my-2 my-sm-0"
+                            onClick={this.clearSession}
+                        >
+                            Logout
+                        </button>
+                    </React.Fragment>
                 ) : (
-                    <div className={classes.navlinks}>
-                        <Link to="/" className={classes.link}>
-                            Home
-                        </Link>
-                        <Link to="/about" className={classes.link}>
-                            About
-                        </Link>
-                        <Link to="/contact" className={classes.link}>
-                            Contact
-                        </Link>
-                        <Link to="/faq" className={classes.link}>
-                            FAQ
-                        </Link>
-                    </div>
+                    <NavLink to="/login" className="nav-item">
+                        <button className="btn btn-outline-light my-2 my-sm-0">
+                            Login
+                        </button>
+                    </NavLink>
                 )}
-            </Toolbar>
-        </AppBar>
-    );
+            </nav>
+        );
+    }
 }
-export default Navbar;
+
+export default NavBar;
